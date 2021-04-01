@@ -2,38 +2,60 @@ package za.ac.cput.tdd;
 
 //author: Kaylin De Wet 220025754
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
+import static java.time.Duration.ofMinutes;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
     
-    public AppTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
+    private App stuName1;
+    private App stuName2;
+    private App stuName3;
     
     @BeforeEach
     public void setUp() {
+        stuName1 = new App();
+        stuName2 = new App();
+        stuName3 = stuName1;
     }
     
-    @AfterEach
-    public void tearDown() {
+    //1. demonstrating object equality
+    @Test
+    public void testEquality() {
+        assertEquals(stuName1, stuName3);
+        System.out.println("Student names are equal");
     }
 
+    //2. demonstrating object identity
     @Test
-    public void testSomeMethod() {
-        
+    public void testIdentity() {
+        assertSame(stuName1, stuName3);
+    }
+    
+    //3. demonstrating failing test
+    @Test
+    public void testGetStuName() {
+        assertEquals(stuName1, stuName3);
         fail("The test case is a prototype.");
     }
     
+    //4. demonstrating timeouts
+    @Test
+    public void timeoutNotExceeded() 
+    {
+
+        assertTimeout(ofMinutes(3), () -> {
+
+        });
+    }
+    
+    //5. demonstrating disabling test
+    @Ignore
+    @Test
+    public void testGetStuSurname() {
+        assertEquals(stuName1, stuName3);
+       
+    }
 }
